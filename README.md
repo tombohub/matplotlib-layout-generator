@@ -23,7 +23,8 @@ After you added subplot you can drag, resize and close it.
 
 ---
 ### Use the generated code:
-Generated code is simply a function which accepts the matplotlib figure and returns the dictionary of the created axes (subplots):
+Generated code is simply a function which accepts the matplotlib figure and returns the dictionary of the created axes (subplots),
+where key is the name of subplot you have typed:
 
 #### *Super simple example:*
 ```python
