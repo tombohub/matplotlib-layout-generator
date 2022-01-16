@@ -1,0 +1,23 @@
+.grid {
+    background-color: rgb(172, 169, 169);
+}
+
+.item {
+    background-color: rgb(97, 97, 97);
+    border: 1px solid black;
+}
+
+.axes-name {
+    margin: 45%;
+    color: rgb(191, 191, 197);
+}
+
+.closing-tag {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+}
+
+.closing-tag:hover {
+    cursor: pointer;
+}
