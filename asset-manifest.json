@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/matplotlib-layout-generator/static/css/main.ef2e2c29.css",
-    "main.js": "/matplotlib-layout-generator/static/js/main.71ab5092.js",
+    "main.js": "/matplotlib-layout-generator/static/js/main.1ef7c33f.js",
     "static/js/787.aa2fdb3a.chunk.js": "/matplotlib-layout-generator/static/js/787.aa2fdb3a.chunk.js",
     "index.html": "/matplotlib-layout-generator/index.html",
     "main.ef2e2c29.css.map": "/matplotlib-layout-generator/static/css/main.ef2e2c29.css.map",
-    "main.71ab5092.js.map": "/matplotlib-layout-generator/static/js/main.71ab5092.js.map",
+    "main.1ef7c33f.js.map": "/matplotlib-layout-generator/static/js/main.1ef7c33f.js.map",
     "787.aa2fdb3a.chunk.js.map": "/matplotlib-layout-generator/static/js/787.aa2fdb3a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ef2e2c29.css",
-    "static/js/main.71ab5092.js"
+    "static/js/main.1ef7c33f.js"
   ]
 }
