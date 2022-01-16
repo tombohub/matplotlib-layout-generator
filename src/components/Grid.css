@@ -13,6 +13,10 @@
     color: #34343d;
 }
 
+.item:hover{
+    cursor: pointer;
+}
+
 
 .closing-tag {
     position: absolute;
@@ -22,4 +26,5 @@
 
 .closing-tag:hover {
     cursor: pointer;
+    font-size: larger;
 }

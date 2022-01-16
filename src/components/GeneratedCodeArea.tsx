@@ -15,6 +15,8 @@ export function GeneratedCodeArea() {
   return (
     <>
       <div>
+        {layout.length < 1 ?? ""}
+        <small>Generated code:</small>
         <SyntaxHighlighter language="python" style={t.xcode}>
           {generateCode(calculateRowsCount(layout), columnsCount, layout)}
         </SyntaxHighlighter>
