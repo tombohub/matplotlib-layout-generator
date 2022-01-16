@@ -32,7 +32,7 @@ export function Grid() {
       >
         {layout.map(item => (
           <div key={item.i} className="item">
-            <div className="axes-name">{item.i}</div>
+            <span>{item.i}</span>
             <span
               className="closing-tag"
               onClick={() => {
