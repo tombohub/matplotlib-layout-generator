@@ -14,8 +14,7 @@ export function generateCode(rowsCount: number, columnsCount: number, layout: La
     gridspec = fig.add_gridspec(nrows=${rowsCount}, ncols=${columnsCount})
     axes = {}
     ${layout.map(item => (
-            `ax_${item.i} = fig.add_subplot(gridspec[${item.y}:${item.y + item.h}, ${item.x}:${item.x + item.w}])
-    axes['${item.i}'] = ax_${item.i}`
+            `axes['${item.i}'] = fig.add_subplot(gridspec[${item.y}:${item.y + item.h}, ${item.x}:${item.x + item.w}])`
         )).join('\n    ')
         }
     return axes`
