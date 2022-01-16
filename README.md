@@ -1,46 +1,135 @@
-# Getting Started with Create React App
+# Matplotlib Layout Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Before you start:
+1. You must have experience with using matplotlib. 
+2. It needs to be use on desktop. Not designed for mobile.
 
-## Available Scripts
+---
+### Add subplot to the layout:
+![image](https://user-images.githubusercontent.com/3029412/149650600-d5f76085-b345-4375-b349-0fa23d055383.png)
 
-In the project directory, you can run:
+---
+### Adjust the subplot:
+After you added subplot you can drag, resize and close it.
+![image](https://user-images.githubusercontent.com/3029412/149650825-ccd72263-f43a-4220-912c-baa38f69ffa0.png)
 
-### `npm start`
+---
+### Add more subplots and play with layout:
+![image](https://user-images.githubusercontent.com/3029412/149650874-a96eb45f-2d56-423b-8ae7-d3f621e7d5db.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
+### Copy the generated code (which is displayed under the layout):
+![image](https://user-images.githubusercontent.com/3029412/149651058-fd75434c-d93b-486c-ae35-05384b878454.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
+### Use the generated code:
+Generated code is simply a function which accepts the matplotlib figure and returns the dictionary of the created axes (subplots):
 
-### `npm test`
+#### *Super simple example:*
+```python
+import matplotlib.pyplot as plt
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+def generate_axes(fig):
+    gridspec = fig.add_gridspec(nrows=13, ncols=12)
+    axes = {}
+    ax_my_plot = fig.add_subplot(gridspec[0:3, 0:3])
+    axes['my_plot'] = ax_my_plot
+    ax_sales = fig.add_subplot(gridspec[3:6, 0:7])
+    axes['sales'] = ax_sales
+    ax_orders = fig.add_subplot(gridspec[6:9, 3:10])
+    axes['orders'] = ax_orders
+    ax_this = fig.add_subplot(gridspec[0:4, 7:11])
+    axes['this'] = ax_this
+    ax_that = fig.add_subplot(gridspec[9:13, 6:10])
+    axes['that'] = ax_that
+    return axes
 
-### `npm run build`
+fig = plt.figure(figsize=(10, 10), constrained_layout=True)
+axes = generate_axes(fig)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# now add plots to each axes as usual:
+# axes['sales'].plot(x,y)...
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*created plot:*
 
-### `npm run eject`
+![image](https://user-images.githubusercontent.com/3029412/149651743-ba34e80a-4e6e-4bad-8906-59592b6449b9.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*notebook:* https://colab.research.google.com/drive/1FKs-SrGWEK7MKMPeN4TXv5BNqBz5UX-X?usp=sharing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### *Normal example:*
+```python
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+import matplotlib.pyplot as plt
+import numpy as np
 
-## Learn More
+def generate_axes(fig):
+    gridspec = fig.add_gridspec(nrows=13, ncols=12)
+    axes = {}
+    ax_my_plot = fig.add_subplot(gridspec[0:3, 0:3])
+    axes['my_plot'] = ax_my_plot
+    ax_sales = fig.add_subplot(gridspec[3:6, 0:7])
+    axes['sales'] = ax_sales
+    ax_orders = fig.add_subplot(gridspec[6:9, 3:10])
+    axes['orders'] = ax_orders
+    ax_this = fig.add_subplot(gridspec[0:4, 7:11])
+    axes['this'] = ax_this
+    ax_that = fig.add_subplot(gridspec[9:13, 6:10])
+    axes['that'] = ax_that
+    return axes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+fig = plt.figure(figsize=(10, 10), constrained_layout=True)
+axes = generate_axes(fig)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+########################################
+x = np.linspace(0, 10, 100)
+y = 4 + 2 * np.sin(2 * x)
+axes['my_plot'].plot(x,y)
+
+########################################
+np.random.seed(1)
+x = 4 + np.random.normal(0, 1.5, 200)
+axes['orders'].hist(x, bins=8, linewidth=0.5, edgecolor="white")
+
+########################################
+np.random.seed(3)
+x = 4 + np.random.normal(0, 2, 24)
+y = 4 + np.random.normal(0, 2, len(x))
+axes['sales'].scatter(x, y)
+
+
+########################################
+labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+men_means = [20, 34, 30, 35, 27]
+women_means = [25, 32, 34, 20, 25]
+
+x = np.arange(len(labels))  # the label locations
+width = 0.35  # the width of the bars
+
+rects1 = axes['that'].bar(x - width/2, men_means, width, label='Men')
+rects2 = axes['that'].bar(x + width/2, women_means, width, label='Women')
+
+axes['that'].set_ylabel('Scores')
+axes['that'].set_title('Scores by group and gender')
+axes['that'].set_xticks(x, labels)
+axes['that'].legend()
+
+########################################
+labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+sizes = [15, 30, 45, 10]
+explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+axes['this'].pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+axes['this'].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+```
+
+*created plot:*
+
+![image](https://user-images.githubusercontent.com/3029412/149652353-23f94cba-6914-47e0-afc7-d6d439c5a75d.png)
+
+*notebook:* https://colab.research.google.com/drive/1FKs-SrGWEK7MKMPeN4TXv5BNqBz5UX-X?usp=sharing
+
